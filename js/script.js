@@ -67,9 +67,13 @@ let score = 0;
 // 5. Call your fetch function (you'll write that in Step 3)
 //
 // Write your code here:
-
-
-
+getQuestionBtn.addEventListener("click", function()) {
+   let category = categorySelect.value;
+   let difficulty = difficultySelect.value;
+   let url = `https://opentdb.com/api.php?amount=1&category=${category}&difficulty=${difficulty}&type=multiple`;
+   status.textContent = "loading...";
+};
+fetchQuestion(url)
 
 // =====================================================
 // STEP 3: Write the fetch function
@@ -93,8 +97,19 @@ let score = 0;
 // }
 //
 // Write your code here:
+functionQuestion(url) {
+   fetch.fetchQuestion(url)
+   .then(response => response.json())
+   .then(data => {
+      let questionData = data.results[0];
+      displayQuestion(questionData);
+   })
+   .catch(error => {
+      status.textContent = "Something went wrong. Please try again.";
+      console.log(error);
+   });
 
-
+};
 
 
 // =====================================================
@@ -116,7 +131,23 @@ let score = 0;
 //
 // Write your code here:
 
-
+function displayQuestion(questionData) {
+   status.textContent = "";
+   questionCard.classList.remove("hidden");
+   questionText.textContent = questionData.question;
+   let answers = [questionData.correct_answer, questionData.incorrect_answers];
+   answers.sort(() => Math.random() - 0.5);
+   answersList.innerHTML = "";
+   answers.forEach(answer => {
+      let btn = document.createElement("button");
+      btn.textContent = answer;
+      btn.classList.add("answer-btn");
+      btn.addEventListener("click", function() {
+         checkAnswer(answer, questionData.correct_answer, btn);
+      });
+      answersList.appendChild(btn);
+   });
+}
 
 
 // =====================================================
