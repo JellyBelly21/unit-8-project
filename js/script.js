@@ -43,9 +43,17 @@
 // Also create a score variable starting at 0.
 //
 // Write your code here:
+let categorySelect = document.getElementById("categorySelect");
+let difficultySelect = document.getElementById("difficultySelect");
+let getQuestionBtn = document.getElementById("getQuestionBtn");
+let status = document.getElementById("status");
+let questionCard = document.getElementById("questionCard");
+let questionText = document.getElementById("questionText");
+let answersList = document.getElementById("answersList");
+let resultText = document.getElementById("resultText");
+let scoreDisplay = document.getElementById("scoreDisplay");
 
-
-
+let score = 0;
 
 // =====================================================
 // STEP 2: Add a click listener to the Get Question button
