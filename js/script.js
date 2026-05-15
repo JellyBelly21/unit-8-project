@@ -67,13 +67,14 @@ let score = 0;
 // 5. Call your fetch function (you'll write that in Step 3)
 //
 // Write your code here:
-getQuestionBtn.addEventListener("click", function()) {
+getQuestionBtn.addEventListener("click", function() {
    let category = categorySelect.value;
    let difficulty = difficultySelect.value;
    let url = `https://opentdb.com/api.php?amount=1&category=${category}&difficulty=${difficulty}&type=multiple`;
-   status.textContent = "loading...";
-};
-fetchQuestion(url)
+   
+   status.textContent = "Loading...";
+   fetchQuestion(url);
+});
 
 // =====================================================
 // STEP 3: Write the fetch function
@@ -97,19 +98,18 @@ fetchQuestion(url)
 // }
 //
 // Write your code here:
-functionQuestion(url) {
-   fetch.fetchQuestion(url)
-   .then(response => response.json())
-   .then(data => {
-      let questionData = data.results[0];
-      displayQuestion(questionData);
-   })
-   .catch(error => {
-      status.textContent = "Something went wrong. Please try again.";
-      console.log(error);
-   });
-
-};
+function fetchQuestion(url) {
+   fetch(url)
+      .then(response => response.json())
+      .then(data => {
+         let questionData = data.results[0];
+         displayQuestion(questionData);
+      })
+      .catch(error => {
+         status.textContent = "Something went wrong. Please try again.";
+         console.error("Fetch error:", error);
+      });
+}
 
 
 // =====================================================
@@ -133,10 +133,18 @@ functionQuestion(url) {
 
 function displayQuestion(questionData) {
    status.textContent = "";
+   resultText.textContent = ""; // Clear previous result
    questionCard.classList.remove("hidden");
-   questionText.textContent = questionData.question;
-   let answers = [questionData.correct_answer, questionData.incorrect_answers];
+   
+   // Use innerHTML to handle HTML entities (like &quot;)
+   questionText.innerHTML = questionData.question;
+   
+   // Combine correct and incorrect answers using spread operator
+   let answers = [questionData.correct_answer, ...questionData.incorrect_answers];
+   
+   // Shuffle answers
    answers.sort(() => Math.random() - 0.5);
+   
    answersList.innerHTML = "";
    answers.forEach(answer => {
       let btn = document.createElement("button");
@@ -167,9 +175,27 @@ function displayQuestion(questionData) {
 // document.querySelectorAll(".answer-btn").forEach(btn => btn.disabled = true);
 //
 // Write your code here:
+function checkAnswer(picked, correct, buttonClicked) {
+   if (picked === correct) {
+      resultText.textContent = "Correct!";
+      resultText.style.color = "green";
+      score++;
+      scoreDisplay.textContent = score;
+      buttonClicked.classList.add("correct");
+   } else {
+      resultText.textContent = `Wrong! The answer was: ${correct}`;
+      resultText.style.color = "red";
+      buttonClicked.classList.add("wrong");
+   }
 
-
-
+   // Disable all buttons and highlight the correct one if user was wrong
+   document.querySelectorAll(".answer-btn").forEach(btn => {
+      if (btn.textContent === correct) {
+         btn.classList.add("correct");
+      }
+      btn.disabled = true;
+   });
+}
 
 // =====================================================
 // BONUS CHALLENGES (Pick at least 1)
