@@ -1,48 +1,4 @@
-/* =====================================================
-   Trivia Challenge - Your Unit 8 Project
-   =====================================================
 
-   Your mission: Build a live web app that uses a real API.
-
-   The default scaffold is a Trivia Challenge using the
-   Open Trivia DB API. The user picks a category and
-   difficulty, you fetch a question, they pick an answer,
-   you tell them if they're right.
-
-   You can also build YOUR OWN API-powered app. Some ideas:
-   - Random dog/cat image generator
-   - Weather lookup tool (use wttr.in, no key needed)
-   - Joke or quote of the day
-   - Music search (iTunes API)
-   - Book search (Google Books API)
-   - Pokemon lookup (PokeAPI)
-
-   Requirements:
-   - Use fetch() to call a real API
-   - Use user input to build a dynamic URL (or pass query params)
-   - Display 3+ pieces of data from the response
-   - Handle errors with .catch (or check data.status)
-   - Use at least 2 different events
-   ===================================================== */
-
-
-// =====================================================
-// STEP 1: Grab the elements you need
-// =====================================================
-// Hint: Use getElementById for:
-// - categorySelect (the category dropdown)
-// - difficultySelect (the difficulty dropdown)
-// - getQuestionBtn (the button)
-// - status (the loading/error message paragraph)
-// - questionCard (the card div, starts hidden)
-// - questionText (where the question goes)
-// - answersList (where the answer buttons go)
-// - resultText (where "Correct!" or "Wrong!" appears)
-// - scoreDisplay (the score number)
-//
-// Also create a score variable starting at 0.
-//
-// Write your code here:
 let categorySelect = document.getElementById("categorySelect");
 let difficultySelect = document.getElementById("difficultySelect");
 let getQuestionBtn = document.getElementById("getQuestionBtn");

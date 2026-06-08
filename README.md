@@ -1,3 +1,9 @@
+Final Project Unit 12: Java Script unit 8 Trivia Game with Upgrades
+Created by Gabriel Ostroff
+Description: I chose the Unit 8 Trivia Game because I wanted to add more features such as, a dark mode and a reset button.
+
+Upgrades: I added a dark mode toggle button and a reset button.
+
 # Trivia Challenge - Unit 8 Project
 
 Your Unit 8 project! You're going to build a real, live API-powered web app.
