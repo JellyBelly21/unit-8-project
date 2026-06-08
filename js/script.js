@@ -62,6 +62,16 @@ themeBtn.addEventListener("click", function() {
    document.body.classList.toggle("dark-mode");
 });
 
+// reset button
+let resetBtn = document.getElementById("resetBtn");
+resetBtn.addEventListener("click", function() {
+   score = 0;
+   scoreDisplay.textContent = score;
+   questionCard.classList.add("hidden");
+   status.textContent = "";
+   resultText.textContent = "";
+});
+
 
 // =====================================================
 // STEP 2: Add a click listener to the Get Question button
