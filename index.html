@@ -7,13 +7,17 @@
 </head>
 <body>
 
+  <!-- starting the quiz -->
   <div class="container">
     <h1>🧠 Trivia Challenge</h1>
     <p class="subtitle">Pick a category and difficulty, then test your brain!</p>
 
+    <!--selecting a category  -->
     <div class="controls">
       <label for="categorySelect">Category:</label>
       <select id="categorySelect">
+
+        <!-- categories -->
         <option value="9">General Knowledge</option>
         <option value="11">Movies</option>
         <option value="12">Music</option>
@@ -24,13 +28,17 @@
         <option value="23">History</option>
       </select>
 
+      <!-- selecting a difficulty -->
       <label for="difficultySelect">Difficulty:</label>
       <select id="difficultySelect">
+
+        <!-- difficulties -->
         <option value="easy">Easy</option>
         <option value="medium">Medium</option>
         <option value="hard">Hard</option>
       </select>
 
+      <!-- getting a question -->
       <button id="getQuestionBtn">Get a Question</button>
 
       <!-- dark mode button -->
@@ -38,17 +46,20 @@
 
       <!-- reset button -->
       <button id="resetBtn">🔄 Reset</button>
-
     </div>
 
     <div id="status" class="status"></div>
 
+    <!-- question display -->
     <div id="questionCard" class="question-card hidden">
       <p id="questionText" class="question"></p>
+
+      <!-- choosing an answer -->
       <div id="answersList" class="answers"></div>
       <p id="resultText" class="result"></p>
     </div>
 
+    <!-- score display -->
     <div class="score-section">
       <p>Score: <span id="scoreDisplay">0</span> correct</p>
     </div>
