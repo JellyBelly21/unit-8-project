@@ -55,6 +55,14 @@ let scoreDisplay = document.getElementById("scoreDisplay");
 
 let score = 0;
 
+
+// dark mode toggle
+let themeBtn = document.getElementById("themeBtn");
+themeBtn.addEventListener("click", function() {
+   document.body.classList.toggle("dark-mode");
+});
+
+
 // =====================================================
 // STEP 2: Add a click listener to the Get Question button
 // =====================================================
@@ -233,3 +241,5 @@ function checkAnswer(picked, correct, buttonClicked) {
 //
 // You're calling a REAL LIVE API. \ud83c\udf10
 // =====================================================
+
+
