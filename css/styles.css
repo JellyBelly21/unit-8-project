@@ -1,8 +1,6 @@
-/* ==========================================
-   Trivia Challenge Styles
-   This is done for you! Don't touch this file.
-   ========================================== */
+/* css file */
 
+/* whole page */
 body {
   font-family: 'Helvetica Neue', Arial, sans-serif;
   background: linear-gradient(135deg, #0ea5e9 0%, #06b6d4 100%);
@@ -10,7 +8,6 @@ body {
   min-height: 100vh;
   margin: 0;
 }
-
 .container {
   background: white;
   padding: 36px;
@@ -19,14 +16,13 @@ body {
   margin: 40px auto;
   box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
 }
-
+/* main text */
 h1 {
   color: #0369a1;
   margin-top: 0;
   text-align: center;
   font-size: 30px;
 }
-
 .subtitle {
   color: #888;
   font-style: italic;
@@ -34,7 +30,6 @@ h1 {
   margin-bottom: 28px;
   font-size: 15px;
 }
-
 .controls {
   display: flex;
   flex-wrap: wrap;
@@ -46,13 +41,11 @@ h1 {
   border-radius: 10px;
   margin-bottom: 24px;
 }
-
 .controls label {
   font-weight: bold;
   color: #0369a1;
   font-size: 14px;
 }
-
 .controls select {
   padding: 8px 12px;
   border: 2px solid #bae6fd;
@@ -61,12 +54,10 @@ h1 {
   font-family: inherit;
   background: white;
 }
-
 .controls select:focus {
   outline: none;
   border-color: #0ea5e9;
 }
-
 .controls button {
   padding: 10px 20px;
   background: #0ea5e9;
@@ -78,11 +69,9 @@ h1 {
   cursor: pointer;
   transition: background 0.2s ease;
 }
-
 .controls button:hover {
   background: #0369a1;
 }
-
 .status {
   text-align: center;
   color: #888;
@@ -90,13 +79,11 @@ h1 {
   margin: 16px 0;
   min-height: 24px;
 }
-
 .status.error {
   color: #b91c1c;
   font-style: normal;
   font-weight: bold;
 }
-
 .question-card {
   background: linear-gradient(135deg, #e0f2fe 0%, #bae6fd 100%);
   padding: 28px;
@@ -104,11 +91,9 @@ h1 {
   border: 2px solid #0ea5e9;
   margin-top: 16px;
 }
-
 .question-card.hidden {
   display: none;
 }
-
 .question {
   font-size: 18px;
   color: #0c4a6e;
@@ -117,13 +102,12 @@ h1 {
   margin-bottom: 20px;
   line-height: 1.4;
 }
-
 .answers {
   display: flex;
   flex-direction: column;
   gap: 8px;
 }
-
+/* answer button */
 .answer-btn {
   padding: 12px 16px;
   background: white;
@@ -135,29 +119,25 @@ h1 {
   transition: all 0.2s ease;
   font-family: inherit;
 }
-
 .answer-btn:hover {
   background: #f0f9ff;
   border-color: #0ea5e9;
 }
-
 .answer-btn.correct {
   background: #dcfce7;
   border-color: #16a34a;
   color: #14532d;
   font-weight: bold;
 }
-
 .answer-btn.wrong {
   background: #fee2e2;
   border-color: #dc2626;
   color: #7f1d1d;
 }
-
 .answer-btn:disabled {
   cursor: not-allowed;
 }
-
+/* results */
 .result {
   text-align: center;
   font-weight: bold;
@@ -166,15 +146,12 @@ h1 {
   margin-bottom: 0;
   min-height: 24px;
 }
-
 .result.correct {
   color: #16a34a;
 }
-
 .result.wrong {
   color: #dc2626;
 }
-
 .score-section {
   text-align: center;
   margin-top: 24px;
@@ -182,55 +159,44 @@ h1 {
   font-size: 16px;
   font-weight: bold;
 }
-
 #scoreDisplay {
   color: #0ea5e9;
   font-size: 20px;
 }
-
-
 /* dark mode toggle */
 .dark-mode {
   background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
 }
-
 .dark-mode .container {
   background: #1e293b;
   border-color: #334155;
   box-shadow: 0 8px 24px rgba(255, 255, 255, 0.1);
 }
-
 .dark-mode h1 {
   color: #38bdf8;
 }
-
 .dark-mode .subtitle {
   color: #94a3b8;
 }
-
 .dark-mode .controls {
   background: #334155;
 }
-
 .dark-mode .controls label {
   color: #38bdf8;
 }
-
 .dark-mode .controls select {
   background: #1e293b;
   color: #cbd5e1;
   border-color: #475569;
 }
-
 .dark-mode .controls select:focus {
   border-color: #475569;
 }
-
+/* button color */
 .dark-mode .controls button {
   background: #38bdf8;
   color: #1e293b;
 }
-
 .dark-mode .controls button:hover {
   background: #0ea5e9;
 }
@@ -240,6 +206,7 @@ h1 {
 .dark-mode .status.error {
   color: #f87171;
 }
+/* dark mode questions */
 .dark-mode .question-card {
   background: #334155;
   border-color: #475569;
@@ -247,6 +214,7 @@ h1 {
 .dark-mode .question {
   color: #cbd5e1;
 }
+/* dark mode answer button */
 .dark-mode .answer-btn {
   background: #1e293b;
   border-color: #475569;
@@ -266,10 +234,10 @@ h1 {
   border-color: #dc2626;
   color: #fee2e2;
 }
+/* result colors */
 .dark-mode .result.correct {
   color: #16a34a;
 }
 .dark-mode .result.wrong {
   color: #dc2626;
 }
-
