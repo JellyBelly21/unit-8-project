@@ -11,7 +11,6 @@ let scoreDisplay = document.getElementById("scoreDisplay");
 
 let score = 0;
 
-
 // dark mode toggle
 let themeBtn = document.getElementById("themeBtn");
 themeBtn.addEventListener("click", function() {
@@ -27,7 +26,6 @@ resetBtn.addEventListener("click", function() {
    status.textContent = "";
    resultText.textContent = "";
 });
-
 
 // =====================================================
 // STEP 2: Add a click listener to the Get Question button
