@@ -1,6 +1,4 @@
-
 // Variables for DOM elements
-
 let categorySelect = document.getElementById("categorySelect");
 let difficultySelect = document.getElementById("difficultySelect");
 let getQuestionBtn = document.getElementById("getQuestionBtn");
@@ -10,16 +8,28 @@ let questionText = document.getElementById("questionText");
 let answersList = document.getElementById("answersList");
 let resultText = document.getElementById("resultText");
 let scoreDisplay = document.getElementById("scoreDisplay");
-
 let score = 0;
-
 // Dark mode toggle button
 let themeBtn = document.getElementById("themeBtn");
+// Check and apply saved theme preference on page load
+if (localStorage.getItem("theme") === "dark") {
+   document.body.classList.add("dark-mode");
+   themeBtn.textContent = "☀️ Toggle Light Mode";
+} else {
+   document.body.classList.remove("dark-mode");
+   themeBtn.textContent = "🌙 Toggle Dark Mode";
+}
 themeBtn.addEventListener("click", function() { 
    // Switch between light and dark themes on the body
-   document.body.classList.toggle("dark-mode");
+   let isDarkMode = document.body.classList.toggle("dark-mode");
+   if (isDarkMode) {
+      themeBtn.textContent = "☀️ Toggle Light Mode";
+      localStorage.setItem("theme", "dark");
+   } else {
+      themeBtn.textContent = "🌙 Toggle Dark Mode";
+      localStorage.setItem("theme", "light");
+   }
 });
-
 // Reset button event handler
 let resetBtn = document.getElementById("resetBtn"); 
 resetBtn.addEventListener("click", function() {
@@ -28,8 +38,8 @@ resetBtn.addEventListener("click", function() {
    questionCard.classList.add("hidden"); // Hide the question card
    status.textContent = ""; // Clear any status or loading text
    resultText.textContent = ""; // Clear the previous result message
+   resultText.className = "result"; // Reset result classes
 });
-
 // Get question button event handler
 getQuestionBtn.addEventListener("click", function() { 
    let category = categorySelect.value;  // Get selected category ID
@@ -41,7 +51,6 @@ getQuestionBtn.addEventListener("click", function() {
    status.textContent = "Loading..."; // Show loading status while fetching
    fetchQuestion(url); // Call function to fetch the data
 });
-
 // Fetches the question from the API
 function fetchQuestion(url) {
    fetch(url) 
@@ -56,11 +65,11 @@ function fetchQuestion(url) {
          console.error("Fetch error:", error);   
       });
 }
-
 // Renders the question and creates answer buttons
 function displayQuestion(questionData) {
    status.textContent = ""; // Clear loading status
    resultText.textContent = ""; // Clear previous correct/wrong message
+   resultText.className = "result"; // Reset classes
    questionCard.classList.remove("hidden"); // Show the question card container
    
    // Sets question text (using innerHTML because the API returns HTML entities like &quot;)
@@ -85,22 +94,20 @@ function displayQuestion(questionData) {
       answersList.appendChild(btn); // Add the button to the answers list in the DOM
    });
 }
-
 // Validates the chosen answer and updates the UI
 function checkAnswer(picked, correct, buttonClicked) {
    // Compare the picked answer with the correct answer
    if (picked === correct) {
       resultText.textContent = "Correct!";
-      resultText.style.color = "green";
+      resultText.className = "result correct";
       score++; // Increment score
       scoreDisplay.textContent = score; // Update score display
       buttonClicked.classList.add("correct"); // Highlight selected button green
    } else {
       resultText.textContent = `Wrong! The answer was: ${correct}`; 
-      resultText.style.color = "red";
+      resultText.className = "result wrong";
       buttonClicked.classList.add("wrong"); // Highlight selected button red
    }
-
    // Disable all buttons to prevent multiple clicks, and highlight the correct answer
    document.querySelectorAll(".answer-btn").forEach(btn => { 
       if (btn.textContent === correct) { 

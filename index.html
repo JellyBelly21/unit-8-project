@@ -2,20 +2,22 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Trivia Challenge</title>
+  <title>🧠 Trivia Challenge</title>
   <link rel="stylesheet" href="css/styles.css">
+  <!-- Include Outfit Font from Google Fonts for a more premium modern typography look -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
   
   <div class="container">
     <h1>🧠 Trivia Challenge</h1>
     <p class="subtitle">Pick a category and difficulty, then test your brain!</p>
-
     <!--selecting a category  -->
     <div class="controls">
       <label for="categorySelect">Category:</label>
       <select id="categorySelect">
-
         <!-- categories -->
         <option value="9">General Knowledge</option>
         <option value="11">Movies</option>
@@ -26,38 +28,29 @@
         <option value="22">Geography</option>
         <option value="23">History</option>
       </select>
-
       <!-- selecting a difficulty -->
       <label for="difficultySelect">Difficulty:</label>
       <select id="difficultySelect">
-
         <!-- difficulties -->
         <option value="easy">Easy</option>
         <option value="medium">Medium</option>
         <option value="hard">Hard</option>
       </select>
-
       <!-- getting a question -->
       <button id="getQuestionBtn">Get a Question</button>
-
       <!-- dark mode button -->
       <button id="themeBtn">🌙 Toggle Dark Mode</button>
-
       <!-- reset button -->
       <button id="resetBtn">🔄 Reset</button>
     </div>
-
     <div id="status" class="status"></div>
-
     <!-- question display -->
     <div id="questionCard" class="question-card hidden">
       <p id="questionText" class="question"></p>
-
       <!-- choosing an answer -->
       <div id="answersList" class="answers"></div>
       <p id="resultText" class="result"></p>
     </div>
-
     <!-- score display -->
     <div class="score-section">
       <p>Score: <span id="scoreDisplay">0</span> correct</p>
