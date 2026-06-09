@@ -1,30 +1,21 @@
-# Trivia Challenge - Unit 8 Project
+Final Project Unit 12: Java Script unit 8 Trivia Game with Upgrades
+Created by Gabriel Ostroff
+Description: I chose the Unit 8 Trivia Game because I wanted to add more features.
 
-Your Unit 8 project! You're going to build a real, live API-powered web app.
-
-## Getting Started
-
-1. **Clone this repo** to your computer
-2. Open the folder in your editor
-3. Open `index.html` in a browser
-
-The HTML and CSS are already built. Your job is to wire up the JavaScript to call the trivia API.
-
-## What You're Building
-
-A **Trivia Challenge** app where:
+The original project is the Unit 8 Trivia Game that does the following: (How I use it?)
 - User picks a category and difficulty from dropdowns
 - Clicks "Get a Question"
-- Your code fetches a real trivia question from the Open Trivia DB API
+- The code fetches a real trivia question from the Open Trivia DB API
 - The question and 4 possible answers appear
 - User clicks an answer
 - App shows if they were right or wrong
 - Score updates after each correct answer
 
-### Or build something else!
+What Upgrades I chose: I added a dark mode button to toggle between DARK and LIGHT mode for user visibility preference. I added a reset button for the user, that way the user isn't confused with the GET A QUESTION button to reset the quiz. Also some people (like me) want a fresh start.
 
-You can build your own API-powered app instead. Some fun free APIs (no API key needed):
+What concepts did I use? I looked at the previous projects and I wanted to integrate some of those features as upgrades into this updated Unit 8 project. I took the DARK MODE BUTTON from the UNIT 6 LIVE PROFILE CARD and the RESET BUTTON from the UNIT 9 PET SIMULATOR.  
 
+<<<<<<< HEAD
 | API | What it does | URL |
 |---|---|---|
 | Dog API | Random dog images | https://dog.ceo/api/breeds/image/random |
@@ -82,3 +73,5 @@ Open your index.html and test:
 🌐 You're calling a real, live API on the internet. This is real software!
 
 Have fun! 🚀
+=======
+>>>>>>> 7ab6295242e1a04fbcf07554198359ee35ac6c39

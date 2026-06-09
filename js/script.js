@@ -1,7 +1,5 @@
-/* =====================================================
-   Trivia Challenge - Your Unit 8 Project
-   =====================================================
 
+<<<<<<< HEAD
    Your mission: Build a live web app that uses a real API.
 
    The default scaffold is a Trivia Challenge using the
@@ -42,6 +40,9 @@
 // Also create a score variable starting at 0.
 //
 // Write your code here:
+=======
+// Variables for DOM elements
+>>>>>>> 7ab6295242e1a04fbcf07554198359ee35ac6c39
 let categorySelect = document.getElementById("categorySelect");
 let difficultySelect = document.getElementById("difficultySelect");
 let getQuestionBtn = document.getElementById("getQuestionBtn");
@@ -54,181 +55,99 @@ let scoreDisplay = document.getElementById("scoreDisplay");
 
 let score = 0;
 
-// =====================================================
-// STEP 2: Add a click listener to the Get Question button
-// =====================================================
-// Hint: When the button is clicked:
-// 1. Read the category value from categorySelect
-// 2. Read the difficulty value from difficultySelect
-// 3. Build the URL with template literals:
-//    `https://opentdb.com/api.php?amount=1&category=${category}&difficulty=${difficulty}&type=multiple`
-// 4. Show "Loading..." in the status element
-// 5. Call your fetch function (you'll write that in Step 3)
-//
-// Write your code here:
-getQuestionBtn.addEventListener("click", function() {
-   let category = categorySelect.value;
-   let difficulty = difficultySelect.value;
-   let url = `https://opentdb.com/api.php?amount=1&category=${category}&difficulty=${difficulty}&type=multiple`;
-   
-   status.textContent = "Loading...";
-   fetchQuestion(url);
+// Dark mode toggle button
+let themeBtn = document.getElementById("themeBtn");
+themeBtn.addEventListener("click", function() { 
+   // Switch between light and dark themes on the body
+   document.body.classList.toggle("dark-mode");
 });
 
-// =====================================================
-// STEP 3: Write the fetch function
-// =====================================================
-// Hint: Create a function called fetchQuestion(url).
-// Inside, use fetch with .then chain to:
-// 1. Convert response to JSON
-// 2. Get the first question: data.results[0]
-// 3. Call displayQuestion (Step 4) with the question data
-// 4. Handle errors with .catch
-//
-// Note: The API returns:
-// {
-//   results: [
-//     {
-//       question: "What is...",
-//       correct_answer: "answer here",
-//       incorrect_answers: ["wrong1", "wrong2", "wrong3"]
-//     }
-//   ]
-// }
-//
-// Write your code here:
+// Reset button event handler
+let resetBtn = document.getElementById("resetBtn"); 
+resetBtn.addEventListener("click", function() {
+   score = 0; 
+   scoreDisplay.textContent = score; // Reset score display
+   questionCard.classList.add("hidden"); // Hide the question card
+   status.textContent = ""; // Clear any status or loading text
+   resultText.textContent = ""; // Clear the previous result message
+});
+
+// Get question button event handler
+getQuestionBtn.addEventListener("click", function() { 
+   let category = categorySelect.value;  // Get selected category ID
+   let difficulty = difficultySelect.value; // Get selected difficulty level
+   
+   // URL configured to fetch 1 multiple-choice question based on selection
+   let url = `https://opentdb.com/api.php?amount=1&category=${category}&difficulty=${difficulty}&type=multiple`;
+   
+   status.textContent = "Loading..."; // Show loading status while fetching
+   fetchQuestion(url); // Call function to fetch the data
+});
+
+// Fetches the question from the API
 function fetchQuestion(url) {
-   fetch(url)
-      .then(response => response.json())
+   fetch(url) 
+      .then(response => response.json()) // Convert response stream to JSON
       .then(data => {
-         let questionData = data.results[0];
-         displayQuestion(questionData);
+         let questionData = data.results[0]; // Get the first question object from results
+         displayQuestion(questionData); // Pass the data to the display function
       })
       .catch(error => {
+         // Show error status to the user and log the details for debugging
          status.textContent = "Something went wrong. Please try again.";
-         console.error("Fetch error:", error);
+         console.error("Fetch error:", error);   
       });
 }
 
-
-// =====================================================
-// STEP 4: Write the display function
-// =====================================================
-// Hint: Create a function called displayQuestion(questionData).
-// Inside:
-// 1. Clear the status text
-// 2. Show the questionCard (remove "hidden" class)
-// 3. Set questionText.textContent to questionData.question
-//    (use innerHTML if there are HTML entities like &quot;)
-// 4. Combine correct + incorrect answers into one array
-// 5. Shuffle them (optional but nicer)
-// 6. Clear answersList.innerHTML
-// 7. Loop through answers and create a button for each
-// 8. Each button should call checkAnswer (Step 5) when clicked
-//
-// Hint for shuffling: answers.sort(() => Math.random() - 0.5)
-//
-// Write your code here:
-
+// Renders the question and creates answer buttons
 function displayQuestion(questionData) {
-   status.textContent = "";
-   resultText.textContent = ""; // Clear previous result
-   questionCard.classList.remove("hidden");
+   status.textContent = ""; // Clear loading status
+   resultText.textContent = ""; // Clear previous correct/wrong message
+   questionCard.classList.remove("hidden"); // Show the question card container
    
-   // Use innerHTML to handle HTML entities (like &quot;)
-   questionText.innerHTML = questionData.question;
+   // Sets question text (using innerHTML because the API returns HTML entities like &quot;)
+   questionText.innerHTML = questionData.question; 
    
-   // Combine correct and incorrect answers using spread operator
+   // Combine correct and incorrect answers into a single array
    let answers = [questionData.correct_answer, ...questionData.incorrect_answers];
    
-   // Shuffle answers
-   answers.sort(() => Math.random() - 0.5);
+   // Shuffle the answers array so the correct answer isn't always in the same spot
+   answers.sort(() => Math.random() - 0.5); 
    
-   answersList.innerHTML = "";
-   answers.forEach(answer => {
-      let btn = document.createElement("button");
-      btn.textContent = answer;
-      btn.classList.add("answer-btn");
-      btn.addEventListener("click", function() {
+   answersList.innerHTML = ""; // Clear any previous answer buttons
+   answers.forEach(answer => { 
+      let btn = document.createElement("button"); 
+      btn.textContent = answer; 
+      btn.classList.add("answer-btn"); // Add class for styling
+      
+      btn.addEventListener("click", function() { 
+         // Check if clicked answer is correct
          checkAnswer(answer, questionData.correct_answer, btn);
       });
-      answersList.appendChild(btn);
+      answersList.appendChild(btn); // Add the button to the answers list in the DOM
    });
 }
 
-
-// =====================================================
-// STEP 5: Write the check answer function
-// =====================================================
-// Hint: Create a function called checkAnswer(picked, correct, buttonClicked).
-// Inside:
-// 1. If picked === correct, show "Correct!" in green
-//    - Increment score and update scoreDisplay
-//    - Add "correct" class to the buttonClicked
-// 2. Else, show "Wrong! The answer was: [correct]" in red
-//    - Add "wrong" class to buttonClicked
-//    - Find the correct button and add "correct" class to it
-// 3. Disable all answer buttons so they can only answer once
-//
-// Hint to disable all buttons:
-// document.querySelectorAll(".answer-btn").forEach(btn => btn.disabled = true);
-//
-// Write your code here:
+// Validates the chosen answer and updates the UI
 function checkAnswer(picked, correct, buttonClicked) {
+   // Compare the picked answer with the correct answer
    if (picked === correct) {
       resultText.textContent = "Correct!";
       resultText.style.color = "green";
-      score++;
-      scoreDisplay.textContent = score;
-      buttonClicked.classList.add("correct");
+      score++; // Increment score
+      scoreDisplay.textContent = score; // Update score display
+      buttonClicked.classList.add("correct"); // Highlight selected button green
    } else {
-      resultText.textContent = `Wrong! The answer was: ${correct}`;
+      resultText.textContent = `Wrong! The answer was: ${correct}`; 
       resultText.style.color = "red";
-      buttonClicked.classList.add("wrong");
+      buttonClicked.classList.add("wrong"); // Highlight selected button red
    }
 
-   // Disable all buttons and highlight the correct one if user was wrong
-   document.querySelectorAll(".answer-btn").forEach(btn => {
-      if (btn.textContent === correct) {
-         btn.classList.add("correct");
+   // Disable all buttons to prevent multiple clicks, and highlight the correct answer
+   document.querySelectorAll(".answer-btn").forEach(btn => { 
+      if (btn.textContent === correct) { 
+         btn.classList.add("correct"); // Ensure the correct answer is always highlighted green
       }
-      btn.disabled = true;
+      btn.disabled = true; // Lock the button
    });
 }
-
-// =====================================================
-// BONUS CHALLENGES (Pick at least 1)
-// =====================================================
-//
-// BONUS 1: Loading spinner
-// Add a loading message or spinner during the fetch.
-// You can add CSS animation or just text like "Loading..."
-//
-//
-// BONUS 2: Streak counter
-// Track consecutive correct answers. Show "Streak: 3!"
-// when they get 3 in a row.
-//
-//
-// BONUS 3: Reset button
-// Add a button that resets the score to 0 and hides the
-// question card.
-//
-//
-// BONUS 4: Question count
-// Track total questions asked (correct + wrong) and show
-// "Score: X / Y" instead of just "X correct"
-
-
-
-// =====================================================
-// DONE! Save and open index.html.
-// Test:
-// - Pick a category and difficulty
-// - Click "Get a Question"
-// - You should see a real trivia question with answer choices
-// - Clicking an answer shows correct/wrong feedback
-// - Score updates when you get one right
-//
-// You're calling a REAL LIVE API. \ud83c\udf10
-// =====================================================
