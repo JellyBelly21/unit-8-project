@@ -1,5 +1,5 @@
 
-// varables for DOM elements
+// Variables for DOM elements
 let categorySelect = document.getElementById("categorySelect");
 let difficultySelect = document.getElementById("difficultySelect");
 let getQuestionBtn = document.getElementById("getQuestionBtn");
@@ -12,85 +12,99 @@ let scoreDisplay = document.getElementById("scoreDisplay");
 
 let score = 0;
 
-// dark mode toggle
-let themeBtn = document.getElementById("themeBtn");// click that toggles dark mode
-themeBtn.addEventListener("click", function() { // switch between light and dark themes
-   document.body.classList.toggle("dark-mode");// changes the button text
+// Dark mode toggle button
+let themeBtn = document.getElementById("themeBtn");
+themeBtn.addEventListener("click", function() { 
+   // Switch between light and dark themes on the body
+   document.body.classList.toggle("dark-mode");
 });
 
-// reset button function
-let resetBtn = document.getElementById("resetBtn"); //click that resets the quiz
-resetBtn.addEventListener("click", function() {// resets the quiz
+// Reset button event handler
+let resetBtn = document.getElementById("resetBtn"); 
+resetBtn.addEventListener("click", function() {
    score = 0; 
-   scoreDisplay.textContent = score;// updates score display
-   questionCard.classList.add("hidden");   // hides question card
-   status.textContent = ""; // clears status text
-   resultText.textContent = ""; // clears result text
+   scoreDisplay.textContent = score; // Reset score display
+   questionCard.classList.add("hidden"); // Hide the question card
+   status.textContent = ""; // Clear any status or loading text
+   resultText.textContent = ""; // Clear the previous result message
 });
 
-// get question button function
-getQuestionBtn.addEventListener("click", function() { // fetches question
-   let category = categorySelect.value;  // selected category
-   let difficulty = difficultySelect.value; // selected difficulty
-   let url = `https://opentdb.com/api.php?amount=1&category=${category}&difficulty=${difficulty}&type=multiple`;// sets text while question is being fetched
-   status.textContent = "Loading...";  // show loading status
-   fetchQuestion(url);// calls function with URL
+// Get question button event handler
+getQuestionBtn.addEventListener("click", function() { 
+   let category = categorySelect.value;  // Get selected category ID
+   let difficulty = difficultySelect.value; // Get selected difficulty level
+   
+   // URL configured to fetch 1 multiple-choice question based on selection
+   let url = `https://opentdb.com/api.php?amount=1&category=${category}&difficulty=${difficulty}&type=multiple`;
+   
+   status.textContent = "Loading..."; // Show loading status while fetching
+   fetchQuestion(url); // Call function to fetch the data
 });
 
-// fetch question function
+// Fetches the question from the API
 function fetchQuestion(url) {
-   fetch(url)  // fetches API
-      .then(response => response.json()) // converts response to JSON
-      .then(data => {// checks if API returned a question
-         let questionData = data.results[0]; // gets first question from results array
-         displayQuestion(questionData);// calls function to show question and answers
+   fetch(url) 
+      .then(response => response.json()) // Convert response stream to JSON
+      .then(data => {
+         let questionData = data.results[0]; // Get the first question object from results
+         displayQuestion(questionData); // Pass the data to the display function
       })
-      // handles errors during fetch process
-      .catch(error => {// sets text to an error message if something goes wrong
-         status.textContent = "Something went wrong. Please try again.";// shows error status
-         console.error("Fetch error:", error);   // logs error for debugging purposes
+      .catch(error => {
+         // Show error status to the user and log the details for debugging
+         status.textContent = "Something went wrong. Please try again.";
+         console.error("Fetch error:", error);   
       });
 }
 
-// displays question and answers
+// Renders the question and creates answer buttons
 function displayQuestion(questionData) {
-   status.textContent = ""; // Clear status messages
-   resultText.textContent = ""; // Clear result text
-   questionCard.classList.remove("hidden"); // Show question card
-   questionText.innerHTML = questionData.question; // Sets question text (render any HTML entities)
-   let answers = [questionData.correct_answer, ...questionData.incorrect_answers];// Combine correct and incorrect answers into one array
-   answers.sort(() => Math.random() - 0.5); // Shuffle the answers array to randomize button order
-   answersList.innerHTML = "";// Clear answer buttons
-   answers.forEach(answer => { // Loop through each answer in shuffled array
-      let btn = document.createElement("button"); // Create a button element for each answer
-      btn.textContent = answer; // Set the button text to the answer
-      btn.classList.add("answer-btn");// Adds class for styling
-      btn.addEventListener("click", function() { // Add click event listener to each answer button
-         checkAnswer(answer, questionData.correct_answer, btn);// Call the checkAnswer function
+   status.textContent = ""; // Clear loading status
+   resultText.textContent = ""; // Clear previous correct/wrong message
+   questionCard.classList.remove("hidden"); // Show the question card container
+   
+   // Sets question text (using innerHTML because the API returns HTML entities like &quot;)
+   questionText.innerHTML = questionData.question; 
+   
+   // Combine correct and incorrect answers into a single array
+   let answers = [questionData.correct_answer, ...questionData.incorrect_answers];
+   
+   // Shuffle the answers array so the correct answer isn't always in the same spot
+   answers.sort(() => Math.random() - 0.5); 
+   
+   answersList.innerHTML = ""; // Clear any previous answer buttons
+   answers.forEach(answer => { 
+      let btn = document.createElement("button"); 
+      btn.textContent = answer; 
+      btn.classList.add("answer-btn"); // Add class for styling
+      
+      btn.addEventListener("click", function() { 
+         // Check if clicked answer is correct
+         checkAnswer(answer, questionData.correct_answer, btn);
       });
       answersList.appendChild(btn); // Add the button to the answers list in the DOM
    });
 }
 
-// check answer function
-function checkAnswer(picked, correct, buttonClicked) {// compares picked answer with correct answer
-   if (picked === correct) {// if picked answer is correct
-      resultText.textContent = "Correct!";// shows "Correct!" in text
-      resultText.style.color = "green";// result text is green
-      score++;// increases score by 1
-      scoreDisplay.textContent = score ;// updates score with the new score
-      buttonClicked.classList.add("correct"); // adds "correct" class to button clicked for styling
-   } else {// if picked answer is wrong
-      resultText.textContent = `Wrong! The answer was: ${correct}`; // shows "Wrong! in text
-      resultText.style.color = "red";//result text color red
-      buttonClicked.classList.add("wrong"); // adds "wrong" class to button clicked for styling
+// Validates the chosen answer and updates the UI
+function checkAnswer(picked, correct, buttonClicked) {
+   // Compare the picked answer with the correct answer
+   if (picked === correct) {
+      resultText.textContent = "Correct!";
+      resultText.style.color = "green";
+      score++; // Increment score
+      scoreDisplay.textContent = score; // Update score display
+      buttonClicked.classList.add("correct"); // Highlight selected button green
+   } else {
+      resultText.textContent = `Wrong! The answer was: ${correct}`; 
+      resultText.style.color = "red";
+      buttonClicked.classList.add("wrong"); // Highlight selected button red
    }
 
-   // disable all buttons and highlight correct answer
-   document.querySelectorAll(".answer-btn").forEach(btn => { // loops through all answer buttons
-      if (btn.textContent === correct) { // checks if button text matches correct answer
-         btn.classList.add("correct"); // adds "correct" class to correct answer button for styling
+   // Disable all buttons to prevent multiple clicks, and highlight the correct answer
+   document.querySelectorAll(".answer-btn").forEach(btn => { 
+      if (btn.textContent === correct) { 
+         btn.classList.add("correct"); // Ensure the correct answer is always highlighted green
       }
-      btn.disabled = true;// disables button
+      btn.disabled = true; // Lock the button
    });
-};
+}
